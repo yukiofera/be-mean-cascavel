@@ -3,28 +3,30 @@ mongoose.connect('mongodb://localhost/bemean-cascavel');
 
 var db = mongoose.connection;
 db.on('error', function(err){
-    console.log('Erro de conexao.', err);
+    console.log('Erro de conexao.', err)
 });
 db.on('open', function () {
-  console.log('Conexão aberta.');
+  console.log('Conexão aberta.')
 });
 db.on('connected', function(err){
-    console.log('Conectado');
+    console.log('Conectado')
 });
 db.on('disconnected', function(err){
-    console.log('Desconectado');
+  console.log('Desconectado')
 });
 
-
-
 var Schema = mongoose.Schema;
-var _schema = { name: { type: String, default: '' }
-    , description: { type: String, default: '' }
-    , alcohol: { type: Number, min: 0, default: 0 }
-    , price: { type: Number, min: 0, default: 0 }
-    , category: { type: String, default: ''}
-    , created_at: { type: Date, default: Date.now}
-  };
-var BeerSchema = new Schema(_schema);
+
+var json_schema = {
+    name: { type: String, default: '' }
+  , description: { type: String, default: '' }
+  , alcohol: { type: Number, min: 0}
+  , price: { type: Number, min: 0}
+  , category: { type: String, default: ''}
+  , created_at: { type: Date, default: Date.now }
+  }
+
+var BeerSchema = new Schema(json_schema);
 
 module.exports = mongoose.model('Beer', BeerSchema);
+
